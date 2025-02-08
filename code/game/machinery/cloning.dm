@@ -212,7 +212,7 @@
 			go_out()
 			return
 
-	else if((!occupant) || (occupant.loc != src))
+	else if((!occupant) || (occupant.loc != src)) //gwah
 		occupant = null
 		if(locked)
 			locked = 0
