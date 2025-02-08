@@ -23,6 +23,8 @@
 	var/total_good = 0
 	var/total_all = 0
 
+	var/used_icons = list()
+
 	var/list/collection = list()
 	for(var/SP in subtypesof(path))
 		total_all++
@@ -30,6 +32,27 @@
 		if(!A)
 			log_unit_test("[SP]: Cosmetic - Path resolved to null in list.")
 			continue
+
+		if(!A.icon)
+			log_unit_test("[A] - [A.type]: Cosmetic - Missing icon path.")
+			failed = 1
+
+		if(!A.icon_state)
+			log_unit_test("[A] - [A.type]: Cosmetic - Missing icon_state.")
+			failed = 1
+
+		var/dmi = "[A.icon]"
+		var/state = "[A.icon_state]"
+		var/list/find_list = collection[dmi]
+		if(find_list) // file was used...
+			if(find_list[state])
+				log_unit_test("[A] - [A.type]: Cosmetic - Icon_state \"[state]\" already used in dmi \"[dmi]\". Original use [collection[dmi][state]].")
+				failed = 1
+			else
+				find_list[state] = A.type
+		else
+			collection[dmi] = list()
+			collection[dmi][state] = A.type
 
 		if(!A.name)
 			log_unit_test("[A] - [A.type]: Cosmetic - Missing name.")
