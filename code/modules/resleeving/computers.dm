@@ -390,10 +390,10 @@
 								return
 
 							var/list/subtargets = list()
-							for(var/mob/living/carbon/human/H in H)
-								if(H.resleeve_lock && active_mr.ckey != H.resleeve_lock)
+							for(var/mob/living/carbon/human/scan in H)
+								if(scan.resleeve_lock && active_mr.ckey != scan.resleeve_lock)
 									continue
-								subtargets += H
+								subtargets += scan
 							if(subtargets.len)
 								var/oc_sanity = H
 								override = tgui_input_list(ui.user,"Multiple bodies detected. Select target for resleeving of [active_mr.mindname] manually. Sleeving of primary body is unsafe with sub-contents, and is not listed.", "Resleeving Target", subtargets)
