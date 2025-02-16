@@ -46,6 +46,30 @@
 	return TRUE
 
 
+/datum/unit_test/reagent_shall_only_be_define_once
+	name = "REAGENTS: Reagents shall only be defined once"
+
+/datum/unit_test/reagent_shall_only_be_define_once/start_test()
+	var/failed = FALSE
+	var/collection_id = list()
+
+	for(var/Rpath in subtypesof(/datum/reagent))
+		var/datum/reagent/R = new Rpath()
+
+		if(collection_id[R.id])
+			log_unit_test("[Rpath]: Reagents - reagent ID \"[R.id]\" is not unique, used first by [collection_id[R.id]].")
+			failed = TRUE
+		else
+			collection_id[R.id] = R.type
+
+		qdel(R)
+
+	if(failed)
+		fail("One or more /datum/reagent subtypes had redefinitions.")
+	else
+		pass("All /datum/reagent subtypes had correct definitions.")
+	return TRUE
+
 
 /datum/unit_test/chemical_reactions_shall_use_and_produce_valid_reagents
 	name = "REAGENTS: Chemical Reactions shall use and produce valid reagents"
