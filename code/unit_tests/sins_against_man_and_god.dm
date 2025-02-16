@@ -9,7 +9,7 @@
 
 	// This is the most cursed code I have ever written, you are welcome - Willbird
 	for(var/path in typesof(/datum/effect/effect/system/spark_spread))
-		for(var/procpath/pr in path:proc)
+		for(var/procpath/pr in path:verbs)
 			log_unit_test("[pr.type]: Code style - [pr.name] - [pr].")
 
 	if(failed)
