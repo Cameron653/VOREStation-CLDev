@@ -10,8 +10,8 @@
 	// This is the most cursed code I have ever written, you are welcome - Willbird
 	var/global_list = typesof("/proc") //global procs (user defined only, built ins don't show)
 	var/all_list = typesof("/datum/effect/effect/system/spark_spread/proc")
-	for(var/procpath/P in global_list + all_list)
-		log_unit_test("[P.type]: Code style - [P.name] - [P].")
+	for(var/P in global_list + all_list)
+		log_unit_test("[P]: Code style.")
 
 	if(failed)
 		fail("One or more procs have invalid states.")
