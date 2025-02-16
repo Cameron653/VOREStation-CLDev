@@ -8,12 +8,13 @@
 	var/failed = FALSE
 
 	// This is the most cursed code I have ever written, you are welcome - Willbird
-	for(var/path in typesof(/datum/effect/effect/system/spark_spread))
-		for(var/procpath/pr in path:verbs)
-			log_unit_test("[pr.type]: Code style - [pr.name] - [pr].")
+	var/global_list = typesof("/proc") //global procs (user defined only, built ins don't show)
+	var/all_list = typesof("/datum/effect/effect/system/spark_spread/proc")
+	for(var/procpath/P in global_list + all_list)
+		log_unit_test("[P.type]: Code style - [P.name] - [P].")
 
 	if(failed)
-		fail("One or more /datum/reagent subtypes had invalid definitions.")
+		fail("One or more procs have invalid states.")
 	else
-		pass("All /datum/reagent subtypes had correct settings.")
+		pass("All procs are sane.")
 	return TRUE
