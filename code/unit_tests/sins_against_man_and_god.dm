@@ -8,11 +8,11 @@
 	var/failed = FALSE
 
 	// This is the most cursed code I have ever written, you are welcome - Willbird
-	for(var/S in subtypesof(/obj/effect/effect))
+	for(var/S in typesof(/obj/effect/effect))
 		var/path = "[S]/proc"
 		log_unit_test(path)
 		var/list/atoms_list = typesof(path)
-		log_unit_test(atoms_list?.len)
+		log_unit_test(atoms_list.len)
 		for(var/P in atoms_list)
 			log_unit_test("[P]: Code style.")
 
