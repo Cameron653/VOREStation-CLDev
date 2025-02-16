@@ -8,13 +8,14 @@
 	var/failed = FALSE
 
 	// This is the most cursed code I have ever written, you are welcome - Willbird
-	var/global_list = typesof("/proc") //global procs (user defined only, built ins don't show)
-	var/all_list = typesof("/datum/effect/effect/system/spark_spread/proc")
-	for(var/P in global_list + all_list)
-		log_unit_test("[P]: Code style.")
+	for(var/S in subtypesof(/obj/effect/effect))
+		var/atoms_list = typesof("[S]/proc")
 
-	if(failed)
-		fail("One or more procs have invalid states.")
-	else
-		pass("All procs are sane.")
-	return TRUE
+		for(var/procpath/P as anything in atoms_list)
+			log_unit_test("[P]: Code style. [P?.name] - [P?.type]")
+
+		if(failed)
+			fail("One or more procs have invalid states.")
+		else
+			pass("All procs are sane.")
+		return TRUE
